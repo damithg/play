@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,9 @@ namespace BritGroup.Prompt
 
         public static void ProcessFile()
         {
-            var fileLines = File.ReadAllLines("D:\\test.txt");
+            var filePathToRead = ConfigurationManager.AppSettings.Get("filePath");
+
+            var fileLines = File.ReadAllLines(filePathToRead);
 
             var lastLine = fileLines.Last();
             
