@@ -37,11 +37,24 @@ namespace BritGroup.Application
 
             var result = 0.0;
 
-            operators.ForEach(o => {
-                result = Calculate((Instruction)Enum.Parse(typeof(Instruction), o, true), double.Parse(digits[0]), double.Parse(digits[1]));
-                digits.RemoveRange(0, 2);
-                digits.Insert(0, result.ToString());
-            });
+            try
+            {
+                operators.ForEach(o => {
+                    result = Calculate((Instruction)Enum.Parse(typeof(Instruction), o, true), double.Parse(digits[0]), double.Parse(digits[1]));
+                    digits.RemoveRange(0, 2);
+                    digits.Insert(0, result.ToString());
+                });
+            }
+            catch (ArithmeticException exception)
+            {
+                Console.WriteLine($"Looks like we encounter a slight issue {exception}");
+                throw;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
 
             return result;
         }
